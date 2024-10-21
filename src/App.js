@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Components/Authen/Login/Login'; // Đường dẫn đến file Login.js
+import Register from './Components/Authen/Register/Register'; // Đường dẫn đến file Register.js
+import Dashboard from './Components/Dashboard';
+
+const user = {
+  name: 'Nguyễn Văn A',
+  username: 'nguyenvana',
+  birthDate: '01/01/1990',
+  address: 'Hà Nội, Việt Nam',
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard/*" element={<Dashboard user={user} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Login />} /> {/* Mặc định là trang login */}
+      </Routes>
+    </Router>
   );
 }
 
