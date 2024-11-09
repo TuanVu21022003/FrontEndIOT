@@ -79,7 +79,7 @@ function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)} // Cập nhật mật khẩu
                 />
-                <Button variant="contained" color="primary" type="submit" fullWidth sx={{ marginTop: 2 }}>
+                <Button variant="contained" color="primary" onClick={handleLogin} fullWidth sx={{ marginTop: 2 }}>
                     Đăng Nhập
                 </Button>
             </form>

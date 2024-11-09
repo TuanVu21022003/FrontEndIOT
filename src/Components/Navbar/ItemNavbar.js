@@ -21,7 +21,7 @@ function ItemNavbar({ icon, label, route, drawerOpen, showText, subItems, isSele
   return (
     <>
       <ListItem
-        button
+        
         onClick={handleItemClick}
         sx={{
           cursor: 'pointer',
@@ -46,7 +46,7 @@ function ItemNavbar({ icon, label, route, drawerOpen, showText, subItems, isSele
           <List component="div" disablePadding>
             {subItems.map((subItem, index) => (
               <ListItem
-                button
+                
                 key={index}
                 onClick={() => {
                   navigate(subItem.route);
