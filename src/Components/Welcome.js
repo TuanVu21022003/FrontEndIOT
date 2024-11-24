@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Paper, Typography, Avatar, Box } from '@mui/material';
 import defaultAvatar from '../Assets/Images/defaultAvatar.png'; // Adjust the path as necessary
+import { MARGIN_HEADING } from '../Assets/Constants/constants';
 
 function Welcome({ user }) {
   const avatarSrc = user.avatar || defaultAvatar; // Use user's avatar or default image
@@ -11,7 +12,8 @@ function Welcome({ user }) {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '80vh', // Height of the main container
+        height: '100%', // Height of the main container
+        marginTop: MARGIN_HEADING/8
       }}
     >
       <Grid container spacing={2} justifyContent="center" alignItems="center">

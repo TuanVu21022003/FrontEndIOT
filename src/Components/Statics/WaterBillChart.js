@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Typography, Box, TextField } from '@mui/material';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { MARGIN_HEADING } from '../../Assets/Constants/constants';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -67,7 +68,7 @@ const WaterBillChart = () => {
 
     return (
         <Box style={{ width: '100%', height: '80vh' }}>
-            <Typography variant="h4" align="left" style={{ marginLeft: '20px',marginBottom : '50px' }}>
+            <Typography variant="h4" align="left" style={{ marginLeft: '20px',marginBottom : '50px', marginTop : MARGIN_HEADING }}>
                 Biểu đồ tiền nước
             </Typography>
             <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%' }}>

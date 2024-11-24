@@ -4,10 +4,12 @@ import { ListItem, ListItemIcon, ListItemText, Collapse, List } from '@mui/mater
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
+import { COLOR_SELECT_ITEM, THEME_COLOR_FONT } from '../../Assets/Constants/constants';
 
 function ItemNavbar({ icon, label, route, drawerOpen, showText, subItems, isSelected, onSelect }) {
   const [openSubItems, setOpenSubItems] = useState(false);
   const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState(''); // Trạng thái của mục đã chọn
 
   const handleItemClick = () => {
     if (route) {
@@ -21,14 +23,22 @@ function ItemNavbar({ icon, label, route, drawerOpen, showText, subItems, isSele
   return (
     <>
       <ListItem
-        
+
         onClick={handleItemClick}
         sx={{
           cursor: 'pointer',
           height: 56,
-          backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.08)' : 'transparent', // Thay đổi màu nền nếu được chọn
+          backgroundColor: isSelected && subItems == null ? COLOR_SELECT_ITEM : 'transparent', // Thay đổi màu nền nếu được chọn
+          color: isSelected && subItems == null ? THEME_COLOR_FONT : 'initial',
+          "& > .MuiListItemIcon-root": {
+            color: isSelected && subItems == null ? THEME_COLOR_FONT : 'initial',
+          },
           '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.08)',
+            backgroundColor: COLOR_SELECT_ITEM,
+            color: THEME_COLOR_FONT,
+            "& > .MuiListItemIcon-root": {
+              color: THEME_COLOR_FONT, // Màu của ListItemIcon khi hover
+            },
           },
         }}
       >
@@ -46,19 +56,28 @@ function ItemNavbar({ icon, label, route, drawerOpen, showText, subItems, isSele
           <List component="div" disablePadding>
             {subItems.map((subItem, index) => (
               <ListItem
-                
+
                 key={index}
                 onClick={() => {
                   navigate(subItem.route);
                   onSelect(); // Gọi hàm onSelect khi bấm vào mục con
+                  setSelectedItem(subItem.route)
                 }}
                 sx={{
                   pl: 4,
                   height: 56,
                   cursor: 'pointer',
-                  backgroundColor: isSelected && route === subItem.route ? 'rgba(0, 0, 0, 0.08)' : 'transparent', // Thay đổi màu nền cho mục con
+                  backgroundColor: isSelected && selectedItem === subItem.route ? COLOR_SELECT_ITEM : 'transparent', // Thay đổi màu nền cho mục con
+                  color: isSelected && selectedItem === subItem.route ? THEME_COLOR_FONT : 'initial',
+                  "& > .MuiListItemIcon-root": {
+                    color: isSelected && selectedItem === subItem.route ? THEME_COLOR_FONT : 'initial',
+                  },
                   '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                    backgroundColor: COLOR_SELECT_ITEM,
+                    color: THEME_COLOR_FONT,
+                    "& > .MuiListItemIcon-root": {
+                      color: THEME_COLOR_FONT, // Màu của ListItemIcon khi hover
+                    },
                   },
                 }}
               >

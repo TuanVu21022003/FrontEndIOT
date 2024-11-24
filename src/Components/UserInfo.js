@@ -1,14 +1,20 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Avatar, Menu, MenuItem, IconButton, List, ListItem, ListItemText } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications'; // Import biểu tượng thông báo
 import defaultAvatar from '../Assets/Images/defaultAvatar.png'; // Đường dẫn ảnh đại diện mặc định
 import { useNavigate } from 'react-router-dom';
+import logoImage from '../Assets/Images/logo.png'; // Đường dẫn ảnh logo
+import { BORDER_RADIUS_MEDIUM, THEME_COLOR_BACKGROUND, THEME_COLOR_BORDER, THEME_COLOR_FONT, TIME_DELAY, TRANSITION_USER_INFO} from '../Assets/Constants/constants';
+import { createSlideDownAnimation } from '../Assets/Constants/utils';
+
+
 
 function UserInfo({ user }) {
   const [anchorEl, setAnchorEl] = useState(null); // Trạng thái cho menu
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null); // Trạng thái cho menu thông báo
   const [notifications, setNotifications] = useState([]); // Trạng thái để lưu trữ thông báo
   const navigate = useNavigate();
+  const slideDown = createSlideDownAnimation(TRANSITION_USER_INFO)
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget); // Mở menu
@@ -46,89 +52,120 @@ function UserInfo({ user }) {
   return (
     <Box
       sx={{
-        backgroundColor: '#f5f5f5',
-        padding: '10px',
-        borderBottom: '2px solid #00CCFF',
+        backgroundColor: THEME_COLOR_BACKGROUND,
+        color: THEME_COLOR_FONT,
+        borderBottom: `2px solid ${THEME_COLOR_BORDER}`,
         justifyContent: 'flex-end',
         display: 'flex',
         alignItems: 'center', // Căn giữa các item theo chiều dọc
+        position: "sticky",
+        top: 0, // Nằm ở dưới cùng của trang
+        left: 0, // Căn sát bên trái
+        width: "100%", // Chiếm toàn bộ chiều ngang
+        zIndex: '1',
+        borderBottomLeftRadius: BORDER_RADIUS_MEDIUM,
+        borderBottomRightRadius: BORDER_RADIUS_MEDIUM,
+        animation: `${slideDown} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${TIME_DELAY} both`
       }}
     >
-      {/* Biểu tượng thông báo */}
-      <IconButton
-        onClick={handleNotificationClick} // Mở menu thông báo và tải thông báo
-        sx={{ marginRight: 2 }}
-      >
-        <NotificationsIcon />
-      </IconButton>
-
-      {/* Menu thông báo */}
-      <Menu
-        anchorEl={notificationAnchorEl}
-        open={Boolean(notificationAnchorEl)} // Mở menu nếu anchor không null
-        onClose={handleNotificationClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        sx={{ mt: 2 }} // Thêm margin top (điều chỉnh giá trị nếu cần)
-      >
-        <List>
-          {notifications.map((notification) => (
-            <ListItem
-              key={notification.id}
-              button
-              onClick={() => console.log('Notification:', notification)} // In ra toàn bộ đối tượng thông báo
-              sx={{
-                cursor: 'pointer'
-              }}
-            >
-              <ListItemText primary={notification.title} secondary={notification.description} />
-            </ListItem>
-          ))}
-        </List>
-      </Menu>
-
-      <Box
-        onClick={handleMenuClick}
+      {/* Logo */}
+      {/* <Box
+        component="img"
+        src={logoImage}
+        alt="Logo"
         sx={{
-          cursor: 'pointer',
-          marginRight: 2,
+          height: 100,
+          borderRadius: '50%',
+          marginRight: 2, // Khoảng cách giữa logo và các thành phần khác
+        }}
+      /> */}
+      <Box
+        sx={{
+          backgroundColor: THEME_COLOR_BACKGROUND,
+          padding: '10px',
+          justifyContent: 'flex-end',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'center', // Căn giữa các item theo chiều dọc,
+          borderBottomLeftRadius: BORDER_RADIUS_MEDIUM,
+          borderBottomRightRadius: BORDER_RADIUS_MEDIUM,
         }}
       >
-        <Typography variant="h6" sx={{ marginRight: 1 }}>
-          Xin chào, {user.name}
-        </Typography>
-        <Avatar
-          alt={user.name}
-          src={user.avatar || defaultAvatar} // Sử dụng ảnh đại diện của người dùng hoặc ảnh mặc định
-          sx={{ width: 40, height: 40 }} // Kích thước của ảnh đại diện
-        />
-      </Box>
+        {/* Biểu tượng thông báo */}
+        <IconButton
+          onClick={handleNotificationClick} // Mở menu thông báo và tải thông báo
+          sx={{ marginRight: 2, color: THEME_COLOR_FONT }}
+        >
+          <NotificationsIcon />
+        </IconButton>
 
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={() => handleMenuClose(null)} // Đóng menu mà không có hành động
-        anchorOrigin={{
-          vertical: 'bottom', // Đặt menu bên dưới ảnh đại diện
-          horizontal: 'right', // Căn menu sang bên phải
-        }}
-        transformOrigin={{
-          vertical: 'top', // Bắt đầu menu từ trên cùng
-          horizontal: 'right', // Căn trên cùng của menu với bên phải
-        }}
-        sx={{ mt: 2 }} // Thêm margin top (điều chỉnh giá trị nếu cần)
-      >
-        <MenuItem onClick={() => handleMenuClose('changePassword')}>Đổi mật khẩu</MenuItem>
-        <MenuItem onClick={() => handleMenuClose('logout')}>Đăng xuất</MenuItem>
-      </Menu>
+        {/* Menu thông báo */}
+        <Menu
+          anchorEl={notificationAnchorEl}
+          open={Boolean(notificationAnchorEl)} // Mở menu nếu anchor không null
+          onClose={handleNotificationClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          sx={{ mt: 2 }} // Thêm margin top (điều chỉnh giá trị nếu cần)
+        >
+          <List>
+            {notifications.map((notification) => (
+              <ListItem
+                key={notification.id}
+                button
+                onClick={() => console.log('Notification:', notification)} // In ra toàn bộ đối tượng thông báo
+                sx={{
+                  cursor: 'pointer'
+                }}
+              >
+                <ListItemText primary={notification.title} secondary={notification.description} />
+              </ListItem>
+            ))}
+          </List>
+        </Menu>
+
+        <Box
+          onClick={handleMenuClick}
+          sx={{
+            cursor: 'pointer',
+            marginRight: 2,
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h6" sx={{ marginRight: 1 }}>
+            Xin chào, {user.name}
+          </Typography>
+          <Avatar
+            alt={user.name}
+            src={user.avatar || defaultAvatar} // Sử dụng ảnh đại diện của người dùng hoặc ảnh mặc định
+            sx={{ width: 40, height: 40 }} // Kích thước của ảnh đại diện
+          />
+        </Box>
+
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={() => handleMenuClose(null)} // Đóng menu mà không có hành động
+          anchorOrigin={{
+            vertical: 'bottom', // Đặt menu bên dưới ảnh đại diện
+            horizontal: 'right', // Căn menu sang bên phải
+          }}
+          transformOrigin={{
+            vertical: 'top', // Bắt đầu menu từ trên cùng
+            horizontal: 'right', // Căn trên cùng của menu với bên phải
+          }}
+          sx={{ mt: 2 }} // Thêm margin top (điều chỉnh giá trị nếu cần)
+        >
+          <MenuItem onClick={() => handleMenuClose('changePassword')}>Đổi mật khẩu</MenuItem>
+          <MenuItem onClick={() => handleMenuClose('logout')}>Đăng xuất</MenuItem>
+        </Menu>
+      </Box>
     </Box>
   );
 }

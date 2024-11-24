@@ -13,8 +13,12 @@ import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 import ItemNavbar from './ItemNavbar';
 import SsidChartIcon from '@mui/icons-material/SsidChart';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
+import logoImage from '../../Assets/Images/logo.png'; // Đường dẫn ảnh logo
+import { TRANSITION_NAVBAR , TIME_DELAY} from '../../Assets/Constants/constants';
+import { createSlideLeftAnimation } from '../../Assets/Constants/utils';
 
 function Navbar() {
+  const slideDown = createSlideLeftAnimation(TRANSITION_NAVBAR)
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [showText, setShowText] = useState(true);
   const [selectedItem, setSelectedItem] = useState('/dashboard/welcome'); // Trạng thái của mục đã chọn
@@ -33,6 +37,7 @@ function Navbar() {
       variant="permanent"
       sx={{
         width: drawerOpen ? 240 : 60,
+        height: '100vh',
         flexShrink: 0,
         transition: 'width 0.3s',
         '& .MuiDrawer-paper': {
@@ -40,6 +45,7 @@ function Navbar() {
           boxSizing: 'border-box',
           transition: 'width 0.3s',
         },
+        animation: `${slideDown} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${TIME_DELAY} both`
       }}
       onTransitionEnd={handleTransitionEnd}
     >
@@ -60,7 +66,16 @@ function Navbar() {
           {drawerOpen ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
         </IconButton>
       </Box>
-
+      {/* Logo */}
+      <Box
+        component="img"
+        src={logoImage}
+        alt="Logo"
+        sx={{
+          width: 'auto',
+          borderRadius: '50%',
+        }}
+      />
       <List>
         <ItemNavbar
           icon={<DashboardIcon />}

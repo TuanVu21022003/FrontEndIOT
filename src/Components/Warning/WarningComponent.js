@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import InfoIcon from '@mui/icons-material/Info';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { MARGIN_HEADING } from '../../Assets/Constants/constants';
 
 const WarningComponent = () => {
     const [alertData, setAlertData] = useState(null);
@@ -56,7 +57,8 @@ const WarningComponent = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '80vh'
+                height: '100%',
+                marginTop: MARGIN_HEADING/8
             }}
         >
 

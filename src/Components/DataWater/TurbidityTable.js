@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'; // Normal state icon
+import { BORDER_RADIUS_MEDIUM, BORDER_RADIUS_SMALL, MARGIN_HEADING, THEME_COLOR_BORDER } from '../../Assets/Constants/constants';
 
 const initialData = [
     { id: 1, turbidityValue: 3.5, timestamp: '2024-10-21 10:30', location: 'Hà Nội' },
@@ -82,16 +83,29 @@ function TurbidityTable() {
 
     return (
         <div style={{ textAlign: 'center' }}>
-            <Typography variant="h4" align="left" style={{ marginLeft: '20px' }}>Dữ liệu độ đục</Typography>
+            <Typography variant="h4" align="left" style={{ margin: MARGIN_HEADING}}>Dữ liệu độ đục</Typography>
             <TableContainer component={Paper}
                 sx={{
                     width: '80vh',
-                    height: '80vh',
-                    margin: 'auto' // Center the table container
+                    height: '70vh',
+                    margin: 'auto', // Center the table container
+                    borderRadius: BORDER_RADIUS_SMALL,
+                    border: `3px solid ${THEME_COLOR_BORDER}`,
+                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)', // Thêm shadow
+                    // overflow: 'hidden',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none'
                 }}
             >
                 <Table>
-                    <TableHead>
+                    <TableHead
+                        style={{
+                            position: 'sticky',
+                            top: 0,
+                            zIndex: 1, // Để đảm bảo TableHead luôn nằm trên các thành phần khác
+                            backgroundColor: '#fff', // Màu nền để tránh bị chồng mờ
+                        }}
+                    >
                         <TableRow>
                             <TableCell align="center">STT</TableCell>
                             <TableCell align="center">

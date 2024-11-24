@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Components/Authen/Login/Login'; // Đường dẫn đến file Login.js
 import Register from './Components/Authen/Register/Register'; // Đường dẫn đến file Register.js
 import Dashboard from './Components/Dashboard';
-import { getSocket } from './Socket/WebSocketService';
 import io from "socket.io-client";
 
 const user = {
@@ -13,40 +12,53 @@ const user = {
   address: 'Hà Nội, Việt Nam',
 };
 
-const SOCKET_SERVER_URL = "https://iot-backend-project.onrender.com"; // Thay đổi nếu cần thiết
+const SOCKET_SERVER_URL = "http://128.199.185.202:4000" // Thay đổi nếu cần thiết
 
-const socket = io(SOCKET_SERVER_URL);
+const socket = io(SOCKET_SERVER_URL,{
+  transports:["websocket"]
+});
 
 function App() {
-  // useEffect(() => {
-  //   const socket = getSocket();
-
-  //   // Example of subscribing to a specific event
-  //   socket.on("sensorData", (data) => {
-  //     console.log("Data received:", data);
-  //   });
-
-  //   // Clean up on unmount
-  //   return () => {
-  //     socket.off("sensorData");
-  //   };
-  // }, []);
-  // const [sensorData, setSensorData] = useState(null);
   useEffect(() => {
-    // Kết nối đến Socket.IO server
-
-    console.log("CHUAN BI NHAN")
-    // Lắng nghe sự kiện 'sensorData' từ server
-    socket.on("sensorData", (data) => {
-      console.log("Dữ liệu nhận từ server:", data);
-      // setSensorData(data);
-    });
-
-    // Hủy kết nối khi component bị unmount
-    return () => {
+    if (socket.connected) {
+      console.log("Socket đã kết nối. Đang ngắt kết nối trước đó...");
       socket.disconnect();
+      return;
+    }
+
+    const handleConnect = () => {
+      console.log("Kết nối thành công đến server với socket ID:", socket.id);
+      // Phát sự kiện "clientEvent" đến server khi kết nối
+      socket.emit("clientEvent", { message: "Xin chào từ FE!" });
     };
-  }, []);
+
+    const handleMqttData = (data) => {
+      console.log("Phản hồi từ server:", data);
+    };
+
+    const handleSwitchSystem = (data) => {
+      console.log("Cảnh báo chỉ số vượt ngưỡng đã ngắt mạch:", data);
+    };
+
+    const handleError = (error) => {
+      console.error("Kết nối thất bại:", error);
+    };
+
+    // Thêm các event listener
+    socket.on("connect", handleConnect);
+    socket.on("mqttData", handleMqttData);
+    socket.on("switch system", handleSwitchSystem);
+    socket.on("serverResponse", handleError);
+
+    // Dọn dẹp khi component bị unmount
+    return () => {
+      console.log("Component unmounted. Gỡ bỏ các listener và ngắt kết nối...");
+      socket.off("connect", handleConnect);
+      socket.off("mqttData", handleMqttData);
+      socket.off("switch system", handleSwitchSystem);
+      socket.off("serverResponse", handleError);
+    };
+  }, []); // Chỉ chạy một lần khi component được mount
   return (
     <Router>
       <Routes>

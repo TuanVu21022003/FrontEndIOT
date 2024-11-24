@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Box, Typography, TextField } from '@mui/material';
+import { MARGIN_HEADING } from '../../Assets/Constants/constants';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -65,9 +66,9 @@ const WaterDataChart = () => {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <Box sx={{ width: '100%', height: '80vh', p: 2 }}>
-            <Typography variant="h4" gutterBottom>
-                Water Quality Over 24 Hours
+        <Box sx={{ width: '100%', height: '80vh'}}>
+            <Typography variant="h4" align="left" style={{ marginLeft: '20px', marginTop : MARGIN_HEADING }}>
+                Biểu đồ dữ liệu nước
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 3 }}>
                 <TextField
