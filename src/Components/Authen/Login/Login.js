@@ -28,7 +28,13 @@ function Login() {
         //   setError('Tên người dùng hoặc mật khẩu không đúng!');
         //   setSuccess('');
         // }
-        navigate("/dashboard")
+        if(username === 'admin' && password === '123123') {
+            navigate("/admindashboard")
+        }
+        else {
+            navigate("/dashboard")
+
+        }
     };
 
     const handleForgotPassword = () => {

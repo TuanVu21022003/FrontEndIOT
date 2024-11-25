@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { Box, Typography, TextField } from '@mui/material';
-import { MARGIN_HEADING } from '../../Assets/Constants/constants';
+import { Box, TextField } from '@mui/material';
+import { MARGIN_HEADING, THEME_COLOR_BORDER } from '../../Assets/Constants/constants';
+import Heading from '../Heading/Heading';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -67,9 +68,11 @@ const WaterDataChart = () => {
 
     return (
         <Box sx={{ width: '100%', height: '80vh'}}>
-            <Typography variant="h4" align="left" style={{ marginLeft: '20px', marginTop : MARGIN_HEADING }}>
-                Biểu đồ dữ liệu nước
-            </Typography>
+            <Heading
+                text="Biểu đồ tiền nước"
+                margin={MARGIN_HEADING}
+                themeColorBorder={THEME_COLOR_BORDER}
+            ></Heading>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 3 }}>
                 <TextField
                     label="Select Date"

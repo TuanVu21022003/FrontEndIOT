@@ -17,24 +17,6 @@ import { HEIGHT_FOOTER, HEIGHT_USERINFO, MARGIN_HEADING } from '../Assets/Consta
 import { css } from '@emotion/react';
 
 function Dashboard({ user }) {
-    const [isUserInfoVisible, setUserInfoVisible] = useState(false);
-
-    // Effect để kích hoạt hiệu ứng khi UserInfo xuất hiện
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setUserInfoVisible(true);
-        }, 1000); // Kích hoạt sau 1 giây
-        return () => clearTimeout(timer); // Dọn dẹp timer
-    }, []);
-
-    // CSS-in-JS styles
-    const userInfoStyles = css`
-        
-        transform: ${isUserInfoVisible ? 'translateY(0)' : 'translateY(-20px)'};
-        opacity: ${isUserInfoVisible ? '1' : '0'};
-        transition: transform 2s ease-out, opacity 2s ease-out;
-    `;
-
     return (
         <Box display="flex" sx={{ position: "relative", margin: '0px' }}>
             <Navbar />

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Box, Typography, Avatar, Menu, MenuItem, IconButton, List, ListItem, ListItemText } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications'; // Import biểu tượng thông báo
-import defaultAvatar from '../Assets/Images/defaultAvatar.png'; // Đường dẫn ảnh đại diện mặc định
+import adminAvatar from '../Assets/Images/logo.png'; // Đường dẫn ảnh đại diện mặc định
 import { useNavigate } from 'react-router-dom';
-import logoImage from '../Assets/Images/logo.png'; // Đường dẫn ảnh logo
 import { BORDER_RADIUS_MEDIUM, THEME_COLOR_BACKGROUND, THEME_COLOR_BORDER, THEME_COLOR_FONT, TIME_DELAY, TRANSITION_USER_INFO} from '../Assets/Constants/constants';
 import { createSlideDownAnimation } from '../Assets/Constants/utils';
 
 
 
-function UserInfo({ user }) {
+function AdminInfo() {
   const [anchorEl, setAnchorEl] = useState(null); // Trạng thái cho menu
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null); // Trạng thái cho menu thông báo
   const [notifications, setNotifications] = useState([]); // Trạng thái để lưu trữ thông báo
@@ -68,17 +67,6 @@ function UserInfo({ user }) {
         animation: `${slideDown} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${TIME_DELAY} both`
       }}
     >
-      {/* Logo */}
-      {/* <Box
-        component="img"
-        src={logoImage}
-        alt="Logo"
-        sx={{
-          height: 100,
-          borderRadius: '50%',
-          marginRight: 2, // Khoảng cách giữa logo và các thành phần khác
-        }}
-      /> */}
       <Box
         sx={{
           backgroundColor: THEME_COLOR_BACKGROUND,
@@ -139,11 +127,10 @@ function UserInfo({ user }) {
           }}
         >
           <Typography variant="h6" sx={{ marginRight: 1 }}>
-            Xin chào, {user.name}
+            Xin chào, Admin
           </Typography>
           <Avatar
-            alt={user.name}
-            src={user.avatar || defaultAvatar} // Sử dụng ảnh đại diện của người dùng hoặc ảnh mặc định
+            src={adminAvatar} // Sử dụng ảnh đại diện của người dùng hoặc ảnh mặc định
             sx={{ width: 40, height: 40 }} // Kích thước của ảnh đại diện
           />
         </Box>
@@ -170,4 +157,4 @@ function UserInfo({ user }) {
   );
 }
 
-export default UserInfo;
+export default AdminInfo;

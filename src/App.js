@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Components/Authen/Login/Login'; // Đường dẫn đến file Login.js
 import Register from './Components/Authen/Register/Register'; // Đường dẫn đến file Register.js
 import Dashboard from './Components/Dashboard';
-import io from "socket.io-client";
+import socket from './Socket/WebSocketService';
+import AdminDashboard from './Components/AdminDashboard';
 
 const user = {
   name: 'Nguyễn Văn A',
@@ -12,11 +13,7 @@ const user = {
   address: 'Hà Nội, Việt Nam',
 };
 
-const SOCKET_SERVER_URL = "http://128.199.185.202:4000" // Thay đổi nếu cần thiết
 
-const socket = io(SOCKET_SERVER_URL,{
-  transports:["websocket"]
-});
 
 function App() {
   useEffect(() => {
@@ -64,6 +61,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard/*" element={<Dashboard user={user} />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} /> {/* Mặc định là trang login */}
       </Routes>

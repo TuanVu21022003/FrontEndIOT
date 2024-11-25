@@ -1,31 +1,10 @@
 // socketService.js
 import { io } from "socket.io-client";
 
-const URL = "https://0e24-113-160-14-39.ngrok-free.app/";  // Replace with your actual server URL
-let socket;
+const SOCKET_SERVER_URL = "http://128.199.185.202:4000" // Thay đổi nếu cần thiết
 
-const connectSocket = () => {
-    console.log("Chuan bi ket noi");
-    if (!socket) {
-        socket = io(URL, {
-            transports: ["websocket"],
-            reconnection: true,
-            reconnectionAttempts: 5,
-            reconnectionDelay: 1000,
-        });
+const socket = io(SOCKET_SERVER_URL,{
+  transports:["websocket"]
+});
 
-        socket.on("connect", () => {
-            console.log("Connected to Socket.IO server");
-        });
-
-        socket.on("disconnect", () => {
-            console.log("Disconnected from Socket.IO server");
-        });
-    }
-    return socket;
-};
-
-export const getSocket = () => {
-    if (!socket) connectSocket();
-    return socket;
-};
+export default socket;

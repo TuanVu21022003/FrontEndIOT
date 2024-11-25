@@ -3,8 +3,9 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'; // Normal state icon
-import { BORDER_RADIUS_MEDIUM, BORDER_RADIUS_SMALL, MARGIN_HEADING, THEME_COLOR_BORDER } from '../../Assets/Constants/constants';
-
+import { BORDER_RADIUS_SMALL, MARGIN_HEADING, THEME_COLOR_BORDER, TIME_DELAY_TABLE, TRANSITION_TABLE } from '../../Assets/Constants/constants';
+import { createTableAnimation, hexToRgba } from '../../Assets/Constants/utils';
+import Heading from '../Heading/Heading';
 const initialData = [
     { id: 1, ecValue: 0.5, timestamp: '2024-10-21 10:30', location: 'Hà Nội' },
     { id: 2, ecValue: 0.8, timestamp: '2024-10-21 10:35', location: 'Hồ Chí Minh' },
@@ -24,6 +25,7 @@ const initialData = [
 ];
 
 function ECDataTable() {
+    const slideDown = createTableAnimation(TRANSITION_TABLE)
     const [data, setData] = useState(initialData);
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('ecValue');
@@ -82,8 +84,17 @@ function ECDataTable() {
     })();
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <Typography variant="h4" align="left" style={{ margin: MARGIN_HEADING}}>Dữ liệu EC</Typography>
+        <div
+            style={{
+                textAlign: 'center',
+
+            }}
+        >
+            <Heading
+                text="Dữ liệu EC"
+                margin={MARGIN_HEADING}
+                themeColorBorder={THEME_COLOR_BORDER}
+            ></Heading>
             <TableContainer component={Paper}
                 sx={{
                     width: '80vh',
@@ -92,9 +103,11 @@ function ECDataTable() {
                     borderRadius: BORDER_RADIUS_SMALL,
                     border: `3px solid ${THEME_COLOR_BORDER}`,
                     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)', // Thêm shadow
+                    // boxShadow: `rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px`,
                     // overflow: 'hidden',
                     scrollbarWidth: 'none',
-                    msOverflowStyle: 'none'
+                    msOverflowStyle: 'none',
+                    animation: `${slideDown} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${TIME_DELAY_TABLE} both`
                 }}
             >
                 <Table>
