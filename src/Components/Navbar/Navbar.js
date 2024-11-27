@@ -90,16 +90,17 @@ function Navbar({role}) {
         <ItemNavbar
           icon={<InfoIcon />}
           label="Dữ liệu"
+          route={`/${parent}/du-lieu`}
           drawerOpen={drawerOpen}
           showText={showText}
-          isSelected={selectedItem.startsWith(`/${parent}/du-lieu`)}
+          isSelected={selectedItem === `/${parent}/du-lieu`}
           onSelect={() => setSelectedItem(`/${parent}/du-lieu`)}
-          subItems={[
-            { icon: <InvertColorsIcon />, label: 'Dữ liệu độ đục', route: `/${parent}/du-lieu/do-duc` },
-            { icon: <ElectricBoltIcon />, label: 'Dữ liệu EC', route: `/${parent}/du-lieu/ec` },
-            { icon: <DeviceThermostatIcon />, label: 'Dữ liệu nhiệt độ', route: `/${parent}/du-lieu/nhiệt-do` },
-            { icon: <InfoIcon />, label: 'Dữ liệu Relay', route: `/${parent}/du-lieu/relay` },
-          ]}
+          // subItems={[
+          //   { icon: <InvertColorsIcon />, label: 'Dữ liệu độ đục', route: `/${parent}/du-lieu/do-duc` },
+          //   { icon: <ElectricBoltIcon />, label: 'Dữ liệu EC', route: `/${parent}/du-lieu/ec` },
+          //   { icon: <DeviceThermostatIcon />, label: 'Dữ liệu nhiệt độ', route: `/${parent}/du-lieu/nhiệt-do` },
+          //   { icon: <InfoIcon />, label: 'Dữ liệu Relay', route: `/${parent}/du-lieu/relay` },
+          // ]}
         />
         <ItemNavbar
           icon={<ReceiptIcon />}

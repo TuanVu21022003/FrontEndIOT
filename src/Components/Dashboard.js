@@ -66,10 +66,7 @@ function Dashboard({ user, role }) {
                                 <Navigate to="/not-found" /> // Redirect nếu role không hợp lệ
                             )
                         } />
-                        <Route path="/du-lieu/do-duc" element={<TurbidityTable />} />
-                        <Route path="/du-lieu/ec" element={<ECDataTable />} />
-                        <Route path="/du-lieu/nhiệt-do" element={<TemperatureTable />} />
-                        <Route path="/du-lieu/relay" element={<RelayDataTable />} />
+                        <Route path="/du-lieu" element={<ECDataTable />} />
                         <Route path="/hoa-don" element={<InvoiceTable />} />
                         <Route path="/thong-ke/tien-nuoc" element={<WaterBillChart />} />
                         <Route path="/thong-ke/du-lieu-nuoc" element={<WaterDataChart />} />

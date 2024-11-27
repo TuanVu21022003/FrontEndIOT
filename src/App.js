@@ -29,30 +29,18 @@ function App() {
       socket.emit("clientEvent", { message: "Xin chào từ FE!" });
     };
 
-    const handleMqttData = (data) => {
-      console.log("Phản hồi từ server:", data);
-    };
-
-    const handleSwitchSystem = (data) => {
-      console.log("Cảnh báo chỉ số vượt ngưỡng đã ngắt mạch:", data);
-    };
-
     const handleError = (error) => {
       console.error("Kết nối thất bại:", error);
     };
 
     // Thêm các event listener
     socket.on("connect", handleConnect);
-    socket.on("mqttData", handleMqttData);
-    socket.on("switch system", handleSwitchSystem);
     socket.on("serverResponse", handleError);
 
     // Dọn dẹp khi component bị unmount
     return () => {
       console.log("Component unmounted. Gỡ bỏ các listener và ngắt kết nối...");
       socket.off("connect", handleConnect);
-      socket.off("mqttData", handleMqttData);
-      socket.off("switch system", handleSwitchSystem);
       socket.off("serverResponse", handleError);
     };
   }, []); // Chỉ chạy một lần khi component được mount
