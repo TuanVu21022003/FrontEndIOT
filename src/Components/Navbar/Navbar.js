@@ -17,11 +17,12 @@ import logoImage from '../../Assets/Images/logo.png'; // Đường dẫn ảnh l
 import { TRANSITION_NAVBAR , TIME_DELAY} from '../../Assets/Constants/constants';
 import { createSlideLeftAnimation } from '../../Assets/Constants/utils';
 
-function Navbar() {
+function Navbar({role}) {
+  const parent = role === 'admin' ? 'admindashboard' : 'dashboard'
   const slideDown = createSlideLeftAnimation(TRANSITION_NAVBAR)
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [showText, setShowText] = useState(true);
-  const [selectedItem, setSelectedItem] = useState('/dashboard/welcome'); // Trạng thái của mục đã chọn
+  const [selectedItem, setSelectedItem] = useState(`/${parent}/welcome`); // Trạng thái của mục đã chọn
 
   const toggleDrawer = () => {
     if (drawerOpen) setShowText(false);
@@ -80,55 +81,55 @@ function Navbar() {
         <ItemNavbar
           icon={<DashboardIcon />}
           label="Welcome"
-          route="/dashboard/welcome"
+          route={`/${parent}/welcome`}
           drawerOpen={drawerOpen}
           showText={showText}
-          isSelected={selectedItem === '/dashboard/welcome'}
-          onSelect={() => setSelectedItem('/dashboard/welcome')}
+          isSelected={selectedItem === `/${parent}/welcome`}
+          onSelect={() => setSelectedItem(`/${parent}/welcome`)}
         />
         <ItemNavbar
           icon={<InfoIcon />}
           label="Dữ liệu"
           drawerOpen={drawerOpen}
           showText={showText}
-          isSelected={selectedItem.startsWith('/dashboard/du-lieu')}
-          onSelect={() => setSelectedItem('/dashboard/du-lieu')}
+          isSelected={selectedItem.startsWith(`/${parent}/du-lieu`)}
+          onSelect={() => setSelectedItem(`/${parent}/du-lieu`)}
           subItems={[
-            { icon: <InvertColorsIcon />, label: 'Dữ liệu độ đục', route: '/dashboard/du-lieu/do-duc' },
-            { icon: <ElectricBoltIcon />, label: 'Dữ liệu EC', route: '/dashboard/du-lieu/ec' },
-            { icon: <DeviceThermostatIcon />, label: 'Dữ liệu nhiệt độ', route: '/dashboard/du-lieu/nhiệt-do' },
-            { icon: <InfoIcon />, label: 'Dữ liệu Relay', route: '/dashboard/du-lieu/relay' },
+            { icon: <InvertColorsIcon />, label: 'Dữ liệu độ đục', route: `/${parent}/du-lieu/do-duc` },
+            { icon: <ElectricBoltIcon />, label: 'Dữ liệu EC', route: `/${parent}/du-lieu/ec` },
+            { icon: <DeviceThermostatIcon />, label: 'Dữ liệu nhiệt độ', route: `/${parent}/du-lieu/nhiệt-do` },
+            { icon: <InfoIcon />, label: 'Dữ liệu Relay', route: `/${parent}/du-lieu/relay` },
           ]}
         />
         <ItemNavbar
           icon={<ReceiptIcon />}
           label="Hóa đơn"
-          route="/dashboard/hoa-don"
+          route={`/${parent}/hoa-don`}
           drawerOpen={drawerOpen}
           showText={showText}
-          isSelected={selectedItem === '/dashboard/hoa-don'}
-          onSelect={() => setSelectedItem('/dashboard/hoa-don')}
+          isSelected={selectedItem === `/${parent}/hoa-don`}
+          onSelect={() => setSelectedItem(`/${parent}/hoa-don`)}
         />
         <ItemNavbar
           icon={<BarChartIcon />}
           label="Thống kê"
           drawerOpen={drawerOpen}
           showText={showText}
-          isSelected={selectedItem.startsWith('/dashboard/thong-ke')}
-          onSelect={() => setSelectedItem('/dashboard/thong-ke')}
+          isSelected={selectedItem.startsWith(`/${parent}/thong-ke`)}
+          onSelect={() => setSelectedItem(`/${parent}/thong-ke`)}
           subItems={[
-            { icon: <EqualizerIcon />, label: 'Thống kê tiền nước', route: '/dashboard/thong-ke/tien-nuoc' },
-            { icon: <SsidChartIcon />, label: 'Thống kê dữ liệu nước', route: '/dashboard/thong-ke/du-lieu-nuoc' },
+            { icon: <EqualizerIcon />, label: 'Thống kê tiền nước', route: `/${parent}/thong-ke/tien-nuoc` },
+            { icon: <SsidChartIcon />, label: 'Thống kê dữ liệu nước', route: `/${parent}/thong-ke/du-lieu-nuoc` },
           ]}
         />
         <ItemNavbar
           icon={<WarningIcon />}
           label="Xem cảnh báo"
-          route="/dashboard/xem-canh-bao"
+          route={`/${parent}/xem-canh-bao`}
           drawerOpen={drawerOpen}
           showText={showText}
-          isSelected={selectedItem === '/dashboard/xem-canh-bao'}
-          onSelect={() => setSelectedItem('/dashboard/xem-canh-bao')}
+          isSelected={selectedItem === `/${parent}/xem-canh-bao`}
+          onSelect={() => setSelectedItem(`/${parent}/xem-canh-bao`)}
         />
       </List>
     </Drawer>

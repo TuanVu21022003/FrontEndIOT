@@ -15,11 +15,14 @@ import WarningComponent from './Warning/WarningComponent';
 import Footer from './Footer';
 import { HEIGHT_FOOTER, HEIGHT_USERINFO, MARGIN_HEADING } from '../Assets/Constants/constants';
 import { css } from '@emotion/react';
+import AdminInfo from './AdminInfo';
+import AdminDashboard from './AdminDashboard';
+import { Navigate } from 'react-router-dom';
 
-function Dashboard({ user }) {
+function Dashboard({ user, role }) {
     return (
         <Box display="flex" sx={{ position: "relative", margin: '0px' }}>
-            <Navbar />
+            <Navbar role = {role}/>
             <Box
                 flex={1}
                 sx={{
@@ -27,10 +30,15 @@ function Dashboard({ user }) {
                     position: 'relative',
                 }}
             >
-                {/* Header thông tin người dùng */}
-                <UserInfo 
-                    user={user} 
-                />
+                {role === "user" && (
+                    < UserInfo
+                        user={user}
+                    />
+                )}
+
+                {role === "admin" && (
+                    < AdminInfo />
+                )}
 
                 {/* Main content area for routing */}
                 <Box
@@ -40,8 +48,24 @@ function Dashboard({ user }) {
                     }}
                 >
                     <Routes>
-                        <Route path="/" element={<Welcome user={user} />} />
-                        <Route path="/welcome" element={<Welcome user={user} />} />
+                        <Route path="/" element={
+                            role === 'user' ? (
+                                <Welcome user={user} />
+                            ) : role === 'admin' ? (
+                                <AdminDashboard/>
+                            ) : (
+                                <Navigate to="/not-found" /> // Redirect nếu role không hợp lệ
+                            )
+                        } />
+                        <Route path="/welcome" element={
+                            role === 'user' ? (
+                                <Welcome user={user} />
+                            ) : role === 'admin' ? (
+                                <AdminDashboard/>
+                            ) : (
+                                <Navigate to="/not-found" /> // Redirect nếu role không hợp lệ
+                            )
+                        } />
                         <Route path="/du-lieu/do-duc" element={<TurbidityTable />} />
                         <Route path="/du-lieu/ec" element={<ECDataTable />} />
                         <Route path="/du-lieu/nhiệt-do" element={<TemperatureTable />} />

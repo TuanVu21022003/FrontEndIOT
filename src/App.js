@@ -60,8 +60,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/*" element={<Dashboard user={user} />} />
-        <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/dashboard/*" element={<Dashboard user={user} role = 'user' />} />
+        <Route path="/admindashboard/*" element={<Dashboard role = 'admin' />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} /> {/* Mặc định là trang login */}
       </Routes>
