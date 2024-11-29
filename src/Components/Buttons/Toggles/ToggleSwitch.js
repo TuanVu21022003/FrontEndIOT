@@ -23,6 +23,8 @@ function ToggleSwitch() {
         return () => clearInterval(interval);
     }, []);
 
+    
+
     return (
         <div id="firstFilter" className="filter-switch">
             {/* Input điều khiển trạng thái thông qua biến isActive */}

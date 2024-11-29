@@ -3,8 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Components/Authen/Login/Login'; // Đường dẫn đến file Login.js
 import Register from './Components/Authen/Register/Register'; // Đường dẫn đến file Register.js
 import Dashboard from './Components/Dashboard';
-import socket from './Socket/WebSocketService';
+import socket, { sendMessage } from './Socket/WebSocketService'; // Import hàm gửi tin nhắn từ WebSocketService
 import AdminDashboard from './Components/AdminDashboard';
+import {
+  connectWebSocket,
+  disconnectWebSocket,
+  isWebSocketConnected
+} from './Socket/WebSocketService';
 
 const user = {
   name: 'Nguyễn Văn A',
@@ -13,43 +18,26 @@ const user = {
   address: 'Hà Nội, Việt Nam',
 };
 
-
-
 function App() {
   useEffect(() => {
-    if (socket.connected) {
-      console.log("Socket đã kết nối. Đang ngắt kết nối trước đó...");
-      socket.disconnect();
+    if(isWebSocketConnected()) {
+      disconnectWebSocket();
       return;
     }
-
-    const handleConnect = () => {
-      console.log("Kết nối thành công đến server với socket ID:", socket.id);
-      // Phát sự kiện "clientEvent" đến server khi kết nối
-      socket.emit("clientEvent", { message: "Xin chào từ FE!" });
-    };
-
-    const handleError = (error) => {
-      console.error("Kết nối thất bại:", error);
-    };
-
-    // Thêm các event listener
-    socket.on("connect", handleConnect);
-    socket.on("serverResponse", handleError);
-
-    // Dọn dẹp khi component bị unmount
+    // Kết nối WebSocket
+    connectWebSocket();
+    // Dọn dẹp khi component unmount
     return () => {
-      console.log("Component unmounted. Gỡ bỏ các listener và ngắt kết nối...");
-      socket.off("connect", handleConnect);
-      socket.off("serverResponse", handleError);
+      // disconnectWebSocket();
     };
   }, []); // Chỉ chạy một lần khi component được mount
+
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/*" element={<Dashboard user={user} role = 'user' />} />
-        <Route path="/admindashboard/*" element={<Dashboard role = 'admin' />} />
+        <Route path="/dashboard/*" element={<Dashboard user={user} role="user" />} />
+        <Route path="/admindashboard/*" element={<Dashboard role="admin" />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} /> {/* Mặc định là trang login */}
       </Routes>
