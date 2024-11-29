@@ -20,12 +20,11 @@ const user = {
 
 function App() {
   useEffect(() => {
-    if(isWebSocketConnected()) {
-      disconnectWebSocket();
-      return;
+    if(!isWebSocketConnected()) {
+      connectWebSocket();
     }
     // Kết nối WebSocket
-    connectWebSocket();
+    
     // Dọn dẹp khi component unmount
     return () => {
       // disconnectWebSocket();

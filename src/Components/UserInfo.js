@@ -23,12 +23,11 @@ import {
   TRANSITION_USER_INFO,
 } from "../Assets/Constants/constants";
 import { createSlideDownAnimation } from "../Assets/Constants/utils";
-import {Notification, allNotifications} from "./Notification";
+import { Notification, allNotifications } from "./Notification";
 import {
   addTopicListener,
   removeTopicListener,
 } from "../Socket/WebSocketService"; // Assuming WebSocketService manages your socket connection
-
 
 function UserInfo({ user }) {
   const [anchorEl, setAnchorEl] = useState(null); // Trạng thái cho menu
@@ -65,21 +64,40 @@ function UserInfo({ user }) {
     setNotificationAnchorEl(null); // Đóng menu thông báo
   };
 
+  const formatDate = (date) => {
+    const options = {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    };
+    return new Date(date).toLocaleString("vi-VN", options);
+  };
+
+  const handleDelete = (index) => {
+    setNotifications((prev) => prev.filter((_, i) => i !== index)); // Xóa thông báo theo chỉ số
+  };
+
   useEffect(() => {
     // WebSocket data handler
     // WebSocket system state handler (e.g., for warnings or status)
     const handleSwitchSystem = (newData) => {
-      console.log("Cảnh báo từ server:", newData);
+      // console.log("Cảnh báo từ server:", newData);
       // Parse new data and update state
-      const newParsedData = newData.payload;
-      console.log("Dữ liệu mới:", typeof newParsedData);
-
+      const message = newData.message;
+      // console.log("Dữ liệu mới:", typeof newParsedData);
+      const timestamp = formatDate(new Date()); // Get formatted date and time
       setNotifications((prevData) => {
         // Ensure that the data array doesn't exceed 15 items
         const updatedData =
-          prevData.length < 5
-            ? [newParsedData, ...prevData] // Add new data to the front if there are less than 15 items
-            : [newParsedData, ...prevData.slice(0, prevData.length - 1)]; // Otherwise, remove the last item and add the new one
+          prevData.length < 15
+            ? [{ message, timestamp }, ...prevData] // Add new data to the front if there are less than 15 items
+            : [
+                { message, timestamp },
+                ...prevData.slice(0, prevData.length - 1),
+              ]; // Otherwise, remove the last item and add the new one
 
         // console.log("Dữ liệu mới:", updatedData);
 
@@ -88,12 +106,12 @@ function UserInfo({ user }) {
     };
 
     // Add WebSocket event listeners
-    addTopicListener("switch system", handleSwitchSystem);
+    addTopicListener("notification", handleSwitchSystem);
 
     // Cleanup on component unmount
     return () => {
       console.log("Component unmounted. Gỡ bỏ các listener và ngắt kết nối...");
-      removeTopicListener("switch system", handleSwitchSystem);
+      removeTopicListener("notification", handleSwitchSystem);
     };
   }, []); // Empty dependency array ensures this runs once on mount
 
@@ -143,7 +161,7 @@ function UserInfo({ user }) {
           onClick={handleNotificationClick} // Mở menu thông báo và tải thông báo
           sx={{ marginRight: 2, color: THEME_COLOR_FONT }}
         >
-          <NotificationsIcon notifications = {notifications} />
+          <NotificationsIcon notifications={notifications} />
         </IconButton>
 
         {/* Menu thông báo */}
@@ -161,7 +179,10 @@ function UserInfo({ user }) {
           }}
           sx={{ mt: 2 }} // Thêm margin top (điều chỉnh giá trị nếu cần)
         >
-          <Notification notifications = {notifications}></Notification>
+          <Notification
+            notifications={notifications}
+            onDelete={handleDelete}
+          ></Notification>
         </Menu>
 
         <Box
