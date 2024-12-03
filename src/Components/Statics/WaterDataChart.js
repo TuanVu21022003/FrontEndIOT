@@ -23,10 +23,10 @@ const WaterDataChart = () => {
         for (let i = 0; i < 24; i++) {
             const hour = new Date(selected.setHours(i, 0, 0, 0)); // Set each hour of the day
             const timeString = hour.toISOString().slice(11, 13); // Extract HH format for labels
-            const turbidity = Math.random() * 100; // Random turbidity value
+            const turbidity = Math.random() * 1000; // Random turbidity value
             const temperature = Math.random() * 35; // Random temperature
-            const ec = Math.random() * 2000; // Random EC value
-            data.push({ time: timeString, turbidity, temperature, ec });
+            // const ec = Math.random() * 2000; // Random EC value
+            data.push({ time: timeString, turbidity, temperature});
         }
 
         setWaterQualityData(data);
@@ -50,13 +50,13 @@ const WaterDataChart = () => {
                 fill: false,
                 tension: 0.1,
             },
-            {
-                label: 'EC (µS/cm)',
-                data: waterQualityData.map(data => data.ec),
-                borderColor: 'rgba(54, 162, 235, 1)',
-                fill: false,
-                tension: 0.1,
-            },
+            // {
+            //     label: 'EC (µS/cm)',
+            //     data: waterQualityData.map(data => data.ec),
+            //     borderColor: 'rgba(54, 162, 235, 1)',
+            //     fill: false,
+            //     tension: 0.1,
+            // },
         ],
     };
 

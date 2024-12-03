@@ -58,7 +58,7 @@ function ECDataTable() {
             : [newParsedData, ...prevData.slice(0, prevData.length - 1)]; // Otherwise, remove the last item and add the new one
 
         // console.log("Dữ liệu mới:", updatedData);
-
+        // initialData = updatedData;
         return updatedData;
       });
     };

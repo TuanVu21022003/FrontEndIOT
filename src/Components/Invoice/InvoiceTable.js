@@ -5,16 +5,16 @@ import ItemInvoice from './ItemInvoice';
 import Heading from '../Heading/Heading';
 
 const initialData = [
-    { id: 1, date: "2024-10-01", waterBill: 150000, status: "Hoàn Thành" },
+    { id: 1, date: "2024-11-01", waterBill: 150000, status: "Hoàn Thành" },
     { id: 2, date: "2024-10-01", waterBill: 200000, status: "Chưa Hoàn Thành" },
-    { id: 3, date: "2024-10-01", waterBill: 120000, status: "Hoàn Thành" },
-    { id: 4, date: "2024-10-01", waterBill: 180000, status: "Chưa Hoàn Thành" },
-    { id: 5, date: "2024-10-01", waterBill: 160000, status: "Hoàn Thành" },
-    { id: 6, date: "2024-10-01", waterBill: 210000, status: "Chưa Hoàn Thành" },
-    { id: 7, date: "2024-10-01", waterBill: 175000, status: "Hoàn Thành" },
-    { id: 8, date: "2024-10-01", waterBill: 195000, status: "Chưa Hoàn Thành" },
-    { id: 9, date: "2024-10-01", waterBill: 185000, status: "Hoàn Thành" },
-    { id: 10, date: "2024-10-01", waterBill: 200000, status: "Chưa Hoàn Thành" },
+    { id: 3, date: "2024-09-01", waterBill: 120000, status: "Hoàn Thành" },
+    { id: 4, date: "2024-08-01", waterBill: 180000, status: "Chưa Hoàn Thành" },
+    { id: 5, date: "2024-07-01", waterBill: 160000, status: "Hoàn Thành" },
+    { id: 6, date: "2024-06-01", waterBill: 210000, status: "Chưa Hoàn Thành" },
+    { id: 7, date: "2024-05-01", waterBill: 175000, status: "Hoàn Thành" },
+    { id: 8, date: "2024-04-01", waterBill: 195000, status: "Chưa Hoàn Thành" },
+    { id: 9, date: "2024-03-01", waterBill: 185000, status: "Hoàn Thành" },
+    { id: 10, date: "2024-02-01", waterBill: 200000, status: "Chưa Hoàn Thành" },
 ];
 
 function InvoiceTable() {
