@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Pagination } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Pagination, Snackbar, Alert } from '@mui/material';
 import { MARGIN_HEADING, THEME_COLOR_BACKGROUND, THEME_COLOR_FONT, THEME_COLOR_BORDER } from '../../Assets/Constants/constants';
 import ItemInvoice from './ItemInvoice';
 import Heading from '../Heading/Heading';
@@ -19,8 +19,8 @@ const initialData = [
 
 function InvoiceTable() {
     const [data, setData] = useState(initialData);
-
     const [currentPage, setCurrentPage] = useState(1);
+    const [notification, setNotification] = useState({ open: false, message: "" });
     const itemsPerPage = 3;
 
     // Tính toán hóa đơn hiển thị
@@ -41,28 +41,34 @@ function InvoiceTable() {
                 item.id === id ? { ...item, status: "Hoàn Thành" } : item
             )
         );
-        alert(`Thanh toán thành công hóa đơn #${id}`);
+
+        // Hiển thị thông báo
+        setNotification({ open: true, message: `Thanh toán thành công hóa đơn #${id}` });
+    };
+
+    // Đóng thông báo
+    const handleCloseNotification = () => {
+        setNotification({ open: false, message: "" });
     };
 
     return (
         <Box
             sx={{
                 height: '100%',
-
             }}
         >
             <Heading
                 text="Danh sách hóa đơn tiền nước"
                 margin={MARGIN_HEADING}
                 themeColorBorder={THEME_COLOR_BORDER}
-            ></Heading>
+            />
             <Box
                 sx={{
                     height: '80%',
                     width: '100%',
                     display: 'flex',
-                    flexDirection: 'column', /* Các phần tử xếp theo hàng dọc */
-                    alignItems: 'center'    /* Căn giữa theo chiều ngang */
+                    flexDirection: 'column',
+                    alignItems: 'center'
                 }}
             >
                 {currentData.map((item) => (
@@ -76,18 +82,28 @@ function InvoiceTable() {
                     page={currentPage}
                     onChange={handlePageChange}
                     color="primary"
-                    // backgroundColor = {THEME_COLOR_BACKGROUND}
                     shape="rounded"
                     size="large"
                     sx={{
-
                         '& .MuiPaginationItem-root.Mui-selected': {
-                            color: THEME_COLOR_FONT, // Màu chữ
-                            backgroundColor: THEME_COLOR_BACKGROUND, // Màu nền
+                            color: THEME_COLOR_FONT,
+                            backgroundColor: THEME_COLOR_BACKGROUND,
                         },
                     }}
                 />
             </Box>
+
+            {/* Snackbar thông báo */}
+            <Snackbar
+                open={notification.open}
+                autoHideDuration={3000}
+                onClose={handleCloseNotification}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert onClose={handleCloseNotification} severity="success">
+                    {notification.message}
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }

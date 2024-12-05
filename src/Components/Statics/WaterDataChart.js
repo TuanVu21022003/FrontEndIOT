@@ -69,7 +69,7 @@ const WaterDataChart = () => {
     return (
         <Box sx={{ width: '100%', height: '80vh'}}>
             <Heading
-                text="Biểu đồ tiền nước"
+                text="Biểu đồ dữ liệu nước"
                 margin={MARGIN_HEADING}
                 themeColorBorder={THEME_COLOR_BORDER}
             ></Heading>

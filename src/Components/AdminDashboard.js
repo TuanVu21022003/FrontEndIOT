@@ -8,6 +8,9 @@ import logoImage from '../Assets/Images/logo.png'; // Đường dẫn ảnh logo
 import CircleToggleButton from './Buttons/CircleToggleButton';
 import ToggleSwitch from './Buttons/Toggles/ToggleSwitch';
 import ToggleGroupThree from './Buttons/ToggleGroupThree';
+import WavyBox from './PoolWater/WavyBox';
+import Pool from './PoolWater/Pool';
+import SliderControlPool from './PoolWater/SliderControlPool';
 function AdminDashboard() {
     const slideLeft = createItemInvoiceAnimation('-100px')
     const slideRight = createItemInvoiceAnimation('100px')
@@ -25,109 +28,162 @@ function AdminDashboard() {
         <Box
             sx={{
                 height: `calc(100vh - (${HEIGHT_USERINFO}px + ${HEIGHT_FOOTER}px + ${MARGIN_HEADING}px))`,
-                position: 'relative',
+                marginTop: MARGIN_HEADING / 8,
                 display: 'flex',
-                justifyContent: 'center',
                 alignItems: 'center',
-                // backgroundColor: '#f0f0f0'
-                marginTop: MARGIN_HEADING /8
+                marginRight: '50px',
+                marginLeft: '50px',
             }}
         >
             <Box
                 sx={{
+                    height: `calc(100vh - (${HEIGHT_USERINFO}px + ${HEIGHT_FOOTER}px + ${MARGIN_HEADING}px))`,
+                    position: 'relative',
                     display: 'flex',
                     justifyContent: 'center',
-                    maxWidth: '1200px',
-                    minWidth: '900px',
-                    width: '80%',
-                    height: '90%'
+                    alignItems: 'center',
+                    // backgroundColor: '#f0f0f0'
+                    // marginTop: MARGIN_HEADING / 8,
+                    flex: 2
                 }}
             >
                 <Box
                     sx={{
-                        flex: 2, // Box thứ nhất chiếm 2 phần
-                        backgroundColor: COLOR_CONTENT_ADMIN, // Màu để dễ phân biệt (tuỳ chọn)
                         display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
                         justifyContent: 'center',
-                        borderTopLeftRadius: BORDER_RADIUS_BIG * 2,
-                        borderBottomLeftRadius: BORDER_RADIUS_BIG * 2,
-                        animation: `${slideLeft} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both`,
+                        maxWidth: '900px',
+                        minWidth: '800px',
+                        width: '80%',
+                        height: '80%'
                     }}
                 >
                     <Box
                         sx={{
+                            flex: 2, // Box thứ nhất chiếm 2 phần
+                            backgroundColor: COLOR_CONTENT_ADMIN, // Màu để dễ phân biệt (tuỳ chọn)
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            width: '80%',
-                            height: '80%', // Chiều cao Box (tuỳ chỉnh theo ý bạn)
-                            backgroundColor: '#fff', // Màu nền (tuỳ chỉnh)
-                            border: `3px solid ${THEME_COLOR_BORDER}`, // Viền Box (tuỳ chỉnh)
-                            borderRadius: BORDER_RADIUS_MEDIUM, // Bo góc (tuỳ chỉnh)
-                            padding: '16px', // Khoảng cách bên trong
-                            boxShadow: `rgba(0, 0, 0, 0.25) 0px 25px 50px -12px`,
-
+                            borderTopLeftRadius: BORDER_RADIUS_BIG * 2,
+                            borderBottomLeftRadius: BORDER_RADIUS_BIG * 2,
+                            animation: `${slideLeft} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both`,
                         }}
                     >
-                        {/* Logo */}
                         <Box
-                            component="img"
-                            src={logoImage}
-                            alt="Logo"
                             sx={{
-                                width: '75%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '80%',
+                                height: '80%', // Chiều cao Box (tuỳ chỉnh theo ý bạn)
+                                backgroundColor: '#fff', // Màu nền (tuỳ chỉnh)
+                                border: `3px solid ${THEME_COLOR_BORDER}`, // Viền Box (tuỳ chỉnh)
+                                borderRadius: BORDER_RADIUS_MEDIUM, // Bo góc (tuỳ chỉnh)
+                                padding: '16px', // Khoảng cách bên trong
+                                boxShadow: `rgba(0, 0, 0, 0.25) 0px 25px 50px -12px`,
 
                             }}
-                        />
-                        <Typography variant="h2"
+                        >
+                            {/* Logo */}
+                            <Box
+                                component="img"
+                                src={logoImage}
+                                alt="Logo"
+                                sx={{
+                                    width: '85%',
+
+                                }}
+                            />
+                            <Typography variant="h3"
+                                sx={{
+                                    fontWeight: 'bold', color: '#333',
+                                    textShadow: `2px 2px 2px ${hexToRgba(THEME_COLOR_BORDER)}`,
+                                    marginTop: '40px'
+                                }}
+                            >
+                                Welcome Admin
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Box
+                        sx={{
+                            flex: 1, // Box thứ hai chiếm 1 phần
+                            backgroundColor: '#fff', // Màu để dễ phân biệt (tuỳ chọn)
+                            borderTopRightRadius: BORDER_RADIUS_BIG,
+                            borderBottomRightRadius: BORDER_RADIUS_BIG,
+                            boxShadow: `${hexToRgba(COLOR_CONTENT_ADMIN, 0.4)} 5px 5px, ${hexToRgba(COLOR_CONTENT_ADMIN, 0.3)} 10px 10px, ${hexToRgba(COLOR_CONTENT_ADMIN, 0.2)} 15px 15px, ${hexToRgba(COLOR_CONTENT_ADMIN, 0.1)} 20px 20px, ${hexToRgba(COLOR_CONTENT_ADMIN, 0.05)} 25px 25px`,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            animation: `${slideRight} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both`,
+                        }}
+                    >
+                        <Box
                             sx={{
-                                fontWeight: 'bold', color: '#333',
-                                textShadow: `2px 2px 2px ${hexToRgba(THEME_COLOR_BORDER)}`
+                                display: 'flex',
+                                flex: 1,
+                                alignItems: 'center',
+                                justifyContent: 'center',
                             }}
                         >
-                            Welcome Admin
-                        </Typography>
+                            <ToggleSwitch></ToggleSwitch>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flex: 3,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <ToggleGroupThree></ToggleGroupThree>
+
+                        </Box>
                     </Box>
+                </Box>
+            </Box>
+            <Box
+                sx={{
+                    flex: 1,
+                    // backgroundColor : '#666'
+                    width: '100%',
+                    height: '80%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                }}
+            >
+                <Box
+                    sx={{
+                        flex: 1,
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        
+                    }}
+                >
+                    <SliderControlPool
+                    ></SliderControlPool>
                 </Box>
                 <Box
                     sx={{
-                        flex: 1, // Box thứ hai chiếm 1 phần
-                        backgroundColor: '#fff', // Màu để dễ phân biệt (tuỳ chọn)
-                        borderTopRightRadius: BORDER_RADIUS_BIG,
-                        borderBottomRightRadius: BORDER_RADIUS_BIG,
-                        boxShadow: `${hexToRgba(COLOR_CONTENT_ADMIN, 0.4)} 5px 5px, ${hexToRgba(COLOR_CONTENT_ADMIN, 0.3)} 10px 10px, ${hexToRgba(COLOR_CONTENT_ADMIN, 0.2)} 15px 15px, ${hexToRgba(COLOR_CONTENT_ADMIN, 0.1)} 20px 20px, ${hexToRgba(COLOR_CONTENT_ADMIN, 0.05)} 25px 25px`,
+                        flex: 3,
+                        width: '100%',
                         display: 'flex',
-                        flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        animation: `${slideRight} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both`,
+                        
                     }}
                 >
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flex: 1,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <ToggleSwitch></ToggleSwitch>
-                    </Box>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flex: 3,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <ToggleGroupThree></ToggleGroupThree>
-
-                    </Box>
+                    <Pool ratio={0.8}
+                    ></Pool>
                 </Box>
+
             </Box>
         </Box>
     );
